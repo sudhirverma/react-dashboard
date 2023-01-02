@@ -53,6 +53,9 @@ function reducer(state, action) {
     case "OPEN_CONFIGURATOR": {
       return { ...state, openConfigurator: action.value };
     }
+    case "DETAIL_INFORMATION": {
+      return { ...state, detailInformation: action.value };
+    }
     case "DIRECTION": {
       return { ...state, direction: action.value };
     }
@@ -78,7 +81,7 @@ function MaterialUIControllerProvider({ children }) {
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,
-    direction: "ltr",
+    detailInformation: {},
     layout: "dashboard",
     darkMode: false,
   };
@@ -116,6 +119,7 @@ const setSidenavColor = (dispatch, value) => dispatch({ type: "SIDENAV_COLOR", v
 const setTransparentNavbar = (dispatch, value) => dispatch({ type: "TRANSPARENT_NAVBAR", value });
 const setFixedNavbar = (dispatch, value) => dispatch({ type: "FIXED_NAVBAR", value });
 const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGURATOR", value });
+const setDetailInformation = (dispatch, value) => dispatch({ type: "DETAIL_INFORMATION", value });
 const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
@@ -130,6 +134,7 @@ export {
   setTransparentNavbar,
   setFixedNavbar,
   setOpenConfigurator,
+  setDetailInformation,
   setDirection,
   setLayout,
   setDarkMode,

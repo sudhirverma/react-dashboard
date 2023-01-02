@@ -15,6 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
+import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -22,140 +23,72 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
+
+// import Footer from "examples/Footer";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
-// Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+// Material Dashboard 2 React contexts
+import { useMaterialUIController, setOpenConfigurator } from "../../context";
 
-// Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import OSSPMaster from "../../OSSPMaster.json";
+
+function lable(title) {
+  return (
+    <MDBox
+      mx={2}
+      mt={-3}
+      py={3}
+      px={2}
+      variant="gradient"
+      bgColor="info"
+      borderRadius="lg"
+      coloredShadow="info"
+      style={{ marginTop: `1%` }}
+    >
+      <MDTypography variant="h6" color="white">
+        {title}
+      </MDTypography>
+    </MDBox>
+  );
+}
+
+function cardDashboard(name) {
+  const [controller, dispatch] = useMaterialUIController();
+  const { openConfigurator } = controller;
+  // Change the openConfigurator state
+  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+
+  return (
+    <MDBox py={3} style={{ marginLeft: `2%`, marginRight: `2%` }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={5} lg={1.5}>
+          <MDBox mb={1.5} sx={{ cursor: "pointer" }} onClick={handleConfiguratorOpen}>
+            <ComplexStatisticsCard title={name} />
+          </MDBox>
+        </Grid>
+      </Grid>
+    </MDBox>
+  );
+}
 
 function Dashboard() {
-  const { sales, tasks } = reportsLineChartData;
-
+  const content = [];
+  const resourceMap = {};
+  for (let i = 0; i < OSSPMaster.length; i += 1) {
+    if (!resourceMap[OSSPMaster[i].bes_technology_stack]) {
+      resourceMap[OSSPMaster[i].bes_technology_stack] = [cardDashboard(OSSPMaster[i].name)];
+    } else {
+      resourceMap[OSSPMaster[i].bes_technology_stack].push(cardDashboard(OSSPMaster[i].name));
+    }
+  }
+  const key = Object.keys(resourceMap);
+  for (let i = 0; i < key.length; i += 1) {
+    content.push(lable(key[i]), ...resourceMap[key[i]]);
+  }
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
-        <MDBox mt={4.5}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <Projects />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid>
-        </MDBox>
-      </MDBox>
-      <Footer />
+      {content}
     </DashboardLayout>
   );
 }

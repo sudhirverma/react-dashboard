@@ -81,7 +81,7 @@ function MaterialUIControllerProvider({ children }) {
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,
-    detailInformation: {},
+    detailInformation: false,
     layout: "dashboard",
     darkMode: false,
   };

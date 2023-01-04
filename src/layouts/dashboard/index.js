@@ -28,7 +28,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController, setOpenConfigurator } from "../../context";
+import { useMaterialUIController, setDetailInformation } from "../../context";
 
 import OSSPMaster from "../../OSSPMaster.json";
 
@@ -54,9 +54,9 @@ function lable(title) {
 
 function cardDashboard(name) {
   const [controller, dispatch] = useMaterialUIController();
-  const { openConfigurator } = controller;
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const { detailInformation } = controller;
+  // Change the detailInformation state
+  const handleConfiguratorOpen = () => setDetailInformation(dispatch, !detailInformation);
 
   return (
     <MDBox py={3} style={{ marginLeft: `2%`, marginRight: `2%` }}>

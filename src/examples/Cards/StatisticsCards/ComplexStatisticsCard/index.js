@@ -24,7 +24,7 @@ import Divider from "@mui/material/Divider";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-function ComplexStatisticsCard({ title, count, percentage }) {
+function ComplexStatisticsCard({ title }) {
   return (
     <Card>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
@@ -32,11 +32,11 @@ function ComplexStatisticsCard({ title, count, percentage }) {
           <MDTypography variant="button" fontWeight="light" color="text">
             {title}
           </MDTypography>
-          <MDTypography variant="h4">{count}</MDTypography>
+          {/* <MDTypography variant="h4">{count}</MDTypography> */}
         </MDBox>
       </MDBox>
       <Divider />
-      <MDBox pb={2} px={2}>
+      {/* <MDBox pb={2} px={2}>
         <MDTypography component="p" variant="button" color="text" display="flex">
           <MDTypography
             component="span"
@@ -48,49 +48,49 @@ function ComplexStatisticsCard({ title, count, percentage }) {
           </MDTypography>
           &nbsp;{percentage.label}
         </MDTypography>
-      </MDBox>
+      </MDBox> */}
     </Card>
   );
 }
 
-// Setting default values for the props of ComplexStatisticsCard
-ComplexStatisticsCard.defaultProps = {
-  color: "info",
-  percentage: {
-    color: "success",
-    text: "",
-    label: "",
-  },
-};
+// // Setting default values for the props of ComplexStatisticsCard
+// ComplexStatisticsCard.defaultProps = {
+//   color: "info",
+//   percentage: {
+//     color: "success",
+//     text: "",
+//     label: "",
+//   },
+// };
 
 // Typechecking props for the ComplexStatisticsCard
 ComplexStatisticsCard.propTypes = {
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]),
+  // color: PropTypes.oneOf([
+  //   "primary",
+  //   "secondary",
+  //   "info",
+  //   "success",
+  //   "warning",
+  //   "error",
+  //   "light",
+  //   "dark",
+  // ]),
   title: PropTypes.string.isRequired,
-  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  percentage: PropTypes.shape({
-    color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "dark",
-      "white",
-    ]),
-    amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string,
-  }),
+  // count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  // percentage: PropTypes.shape({
+  //   color: PropTypes.oneOf([
+  //     "primary",
+  //     "secondary",
+  //     "info",
+  //     "success",
+  //     "warning",
+  //     "error",
+  //     "dark",
+  //     "white",
+  //   ]),
+  //   amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  //   label: PropTypes.string,
+  // }),
 };
 
 export default ComplexStatisticsCard;

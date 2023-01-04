@@ -29,6 +29,7 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
+import Information from "examples/Information";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
@@ -54,6 +55,7 @@ export default function App() {
     layout,
     openConfigurator,
     sidenavColor,
+    detailInformation,
     transparentSidenav,
     whiteSidenav,
     darkMode,
@@ -145,6 +147,7 @@ export default function App() {
           {configsButton}
         </>
       )}
+      {detailInformation && <Information />}
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
